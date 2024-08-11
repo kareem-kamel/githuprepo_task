@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.githubreposapp.R
 
 
@@ -27,7 +28,7 @@ fun RepoAppBar(
     titleStyle: TextStyle = MaterialTheme.typography.titleLarge,
     color: Color = MaterialTheme.colorScheme.surface,
     showBackButton: Boolean = true,
-    onBackButtonClicked: () -> Unit,
+    navController: NavController
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -39,7 +40,11 @@ fun RepoAppBar(
         modifier = modifier.background(color),
         navigationIcon = {
             if (showBackButton) {
-                IconButton(onClick = onBackButtonClicked) {
+                IconButton(onClick = {
+                    if (navController != null) {
+                        navController.navigateUp()
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.back_arrow)
@@ -50,13 +55,3 @@ fun RepoAppBar(
     )
 }
 
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-private fun PreviewRepoAppBar() {
-
-        RepoAppBar(title = R.string.details_app_bar_title) {
-
-            }
-
-}

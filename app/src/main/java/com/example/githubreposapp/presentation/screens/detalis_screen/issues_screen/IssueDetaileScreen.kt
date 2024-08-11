@@ -27,16 +27,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.githubreposapp.R
 import com.example.githubreposapp.presentation.screens.common_components.RepoAppBar
+import com.example.githubreposapp.ui.theme.gray40
 
 @ExperimentalMaterial3Api
 @Composable
-fun isuueItems(
+fun IssueItems(
 
-    backgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
-
-    surfaceColor: Color = MaterialTheme.colorScheme.background
+    backgroundColor: Color = MaterialTheme.colorScheme.background,
+    navController: NavController
 
 
 ) {
@@ -50,11 +52,10 @@ fun isuueItems(
     {
         Column {
             RepoAppBar(
-                title = R.string.issue_app_bar
+                title = R.string.issue_app_bar,
+                navController = navController
 
-            ){
-
-            }
+            )
         }
         LazyColumn {
 
@@ -62,13 +63,13 @@ fun isuueItems(
                 Card(
                     Modifier
                         .fillMaxWidth()
-                        .background(color = backgroundColor)
+                        .background(color = gray40)
                         .padding(horizontal = 10.dp, vertical = 3.dp)
                         .height(140.dp)) {
                     Row (
                         Modifier
                             .fillMaxWidth()
-                            .background(color = surfaceColor)
+                            .background(color = backgroundColor)
                             .fillMaxHeight()
                         ,verticalAlignment = Alignment.CenterVertically
                         , horizontalArrangement = Arrangement.Start
@@ -126,6 +127,8 @@ fun isuueItems(
 @ExperimentalMaterial3Api
 @Preview
 @Composable
-fun issueItemsPreview() {
- isuueItems()
+fun previewIssueItems() {
+    val navControlle = rememberNavController()
+    IssueItems(navController = navControlle)
+
 }
